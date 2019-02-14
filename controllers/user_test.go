@@ -7,7 +7,7 @@ import (
 	"testing"
 
 	"github.com/ChrisTheShark/golang-mongo-api/models"
-	"github.com/ChrisTheShark/golang-mongo-api/repository"
+	mocks "github.com/ChrisTheShark/golang-mongo-api/repository/mocks"
 	"github.com/julienschmidt/httprouter"
 
 	"net/http"
@@ -21,7 +21,7 @@ func TestGetAllUsers(t *testing.T) {
 	w := httptest.NewRecorder()
 	p := httprouter.Params{}
 
-	uc := NewUserController(repository.NewMockUserRepository())
+	uc := NewUserController(mocks.NewMockUserRepository())
 	uc.GetUsers(w, r, p)
 	resp := w.Result()
 
@@ -36,7 +36,7 @@ func TestGetAllUsersNegativePath(t *testing.T) {
 	w := httptest.NewRecorder()
 	p := httprouter.Params{}
 
-	uc := NewUserController(repository.NewMockErroringUserRepository())
+	uc := NewUserController(mocks.NewMockErroringUserRepository())
 	uc.GetUsers(w, r, p)
 	resp := w.Result()
 
@@ -53,7 +53,7 @@ func TestGetUserByID(t *testing.T) {
 		Value: "1",
 	})
 
-	uc := NewUserController(repository.NewMockUserRepository())
+	uc := NewUserController(mocks.NewMockUserRepository())
 	uc.GetUserByID(w, r, p)
 	resp := w.Result()
 
@@ -72,7 +72,7 @@ func TestGetUserByIDNotFound(t *testing.T) {
 		Value: "99",
 	})
 
-	uc := NewUserController(repository.NewMockUserRepository())
+	uc := NewUserController(mocks.NewMockUserRepository())
 	uc.GetUserByID(w, r, p)
 	resp := w.Result()
 
@@ -89,7 +89,7 @@ func TestGetUserByIDNegativePath(t *testing.T) {
 		Value: "99",
 	})
 
-	uc := NewUserController(repository.NewMockErroringUserRepository())
+	uc := NewUserController(mocks.NewMockErroringUserRepository())
 	uc.GetUserByID(w, r, p)
 	resp := w.Result()
 
@@ -110,7 +110,7 @@ func TestAddUser(t *testing.T) {
 	w := httptest.NewRecorder()
 	p := httprouter.Params{}
 
-	uc := NewUserController(repository.NewMockUserRepository())
+	uc := NewUserController(mocks.NewMockUserRepository())
 	uc.AddUser(w, r, p)
 	resp := w.Result()
 
@@ -132,7 +132,7 @@ func TestAddUserBadRequest(t *testing.T) {
 	w := httptest.NewRecorder()
 	p := httprouter.Params{}
 
-	uc := NewUserController(repository.NewMockUserRepository())
+	uc := NewUserController(mocks.NewMockUserRepository())
 	uc.AddUser(w, r, p)
 	resp := w.Result()
 
@@ -153,7 +153,7 @@ func TestAddUserNegativePath(t *testing.T) {
 	w := httptest.NewRecorder()
 	p := httprouter.Params{}
 
-	uc := NewUserController(repository.NewMockErroringUserRepository())
+	uc := NewUserController(mocks.NewMockErroringUserRepository())
 	uc.AddUser(w, r, p)
 	resp := w.Result()
 
@@ -169,7 +169,7 @@ func TestDeleteUser(t *testing.T) {
 		Key:   "id",
 		Value: "1",
 	})
-	uc := NewUserController(repository.NewMockUserRepository())
+	uc := NewUserController(mocks.NewMockUserRepository())
 	uc.DeleteUser(w, r, p)
 	resp := w.Result()
 
@@ -185,7 +185,7 @@ func TestDeleteUserNotFound(t *testing.T) {
 		Key:   "id",
 		Value: "99",
 	})
-	uc := NewUserController(repository.NewMockUserRepository())
+	uc := NewUserController(mocks.NewMockUserRepository())
 	uc.DeleteUser(w, r, p)
 	resp := w.Result()
 
@@ -201,7 +201,7 @@ func TestDeleteUserNegativePath(t *testing.T) {
 		Key:   "id",
 		Value: "1",
 	})
-	uc := NewUserController(repository.NewMockErroringUserRepository())
+	uc := NewUserController(mocks.NewMockErroringUserRepository())
 	uc.DeleteUser(w, r, p)
 	resp := w.Result()
 

@@ -5,13 +5,14 @@ import (
 	"strconv"
 
 	"github.com/ChrisTheShark/golang-mongo-api/models"
+	"github.com/ChrisTheShark/golang-mongo-api/repository"
 )
 
 // MockUserRepository houses logic to retrieve users from a mock repository
 type MockUserRepository struct{}
 
 // NewMockUserRepository convience function to create a MockUserRepository
-func NewMockUserRepository() UserRepository {
+func NewMockUserRepository() repository.UserRepository {
 	return &MockUserRepository{}
 }
 
@@ -61,7 +62,7 @@ func (r MockUserRepository) Delete(user models.User) error {
 type MockErroringUserRepository struct{}
 
 // NewMockErroringUserRepository convience function to create a MockErroringUserRepository
-func NewMockErroringUserRepository() UserRepository {
+func NewMockErroringUserRepository() repository.UserRepository {
 	return &MockErroringUserRepository{}
 }
 
